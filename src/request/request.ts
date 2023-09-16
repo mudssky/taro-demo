@@ -15,7 +15,7 @@ export interface CustomRequestOptions extends Taro.request.Option {
 }
 
 export class Request {
-  private baseURL = "/";
+  private baseURL = process.env.TARO_APP_BASEURL;
   // 默认配置
   private baseConfig = {
     // timeout: 5000,
