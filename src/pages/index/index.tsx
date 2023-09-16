@@ -1,3 +1,4 @@
+import { AtButton } from "taro-ui";
 import { View, Text } from "@tarojs/components";
 import { useLoad } from "@tarojs/taro";
 import "./index.scss";
@@ -9,6 +10,7 @@ export default function Index() {
 
   return (
     <View className="index">
+      <AtButton type="primary">按钮文案</AtButton>
       <View className="text-[#acc855] text-[100px]">Hello world!</View>
       <View className="space-y-[1.6rem]">
         <View className="w-[300rpx] text-black text-opacity-[0.19]">
