@@ -18,9 +18,8 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "allowUmdGlobalAccess": true, //避免未导入React的ts报错
     "paths": {
       "@/*": ["src/*"]
     }
