@@ -1,5 +1,6 @@
 import { defineConfig, type UserConfigExport } from "@tarojs/cli";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+import path from "path";
 import devConfig from "./dev";
 import prodConfig from "./prod";
 // 注册 weapp tailwind
@@ -18,9 +19,19 @@ export default defineConfig(async (merge, { command, mode }) => {
       828: 1.81 / 2,
     },
     sourceRoot: "src",
-    outputRoot: "dist",
+    outputRoot:
+      process.env.NODE_ENV === "development"
+        ? `dist/dev/${process.env.TARO_ENV}`
+        : `dist/prod/${process.env.TARO_ENV}`,
     plugins: [],
-    defineConstants: {},
+    defineConstants: {
+      IS_H5: process.env.TARO_ENV === "h5",
+      IS_RN: process.env.TARO_ENV === "rn",
+      IS_WEAPP: process.env.TARO_ENV === "weapp",
+    },
+    alias: {
+      "@": path.resolve(__dirname, ".."),
+    },
     copy: {
       patterns: [],
       options: {},
@@ -28,7 +39,7 @@ export default defineConfig(async (merge, { command, mode }) => {
     framework: "react",
     compiler: "webpack5",
     cache: {
-      enable: false, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
+      enable: true, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
     },
     mini: {
       postcss: {
