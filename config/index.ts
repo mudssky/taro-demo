@@ -7,11 +7,17 @@ import prodConfig from "./prod";
 // eslint-disable-next-line import/no-commonjs
 const { UnifiedWebpackPluginV5 } = require("weapp-tailwindcss/webpack");
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
+// @ts-ignore 这一行未使用变量ts报错忽略
 export default defineConfig(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport = {
     projectName: "taro-demo",
     date: "2023-9-16",
+    // 默认使用的设计稿尺寸
+    // Taro v3.4.13 开始支持配置函数形式的 designWidth，借此开发者可以动态地设置 designWidth
     designWidth: 750,
+    // 设计稿尺寸换算规则
+    // taro中使用px会按照规则自动转换
+    // js中的行内样式不会自动转换，可以用Taro.pxTransform(10)
     deviceRatio: {
       640: 2.34 / 2,
       750: 1,
@@ -24,6 +30,7 @@ export default defineConfig(async (merge, { command, mode }) => {
         ? `dist/dev/${process.env.TARO_ENV}`
         : `dist/prod/${process.env.TARO_ENV}`,
     plugins: [],
+    // 全局变量设置
     defineConstants: {
       IS_H5: process.env.TARO_ENV === "h5",
       IS_RN: process.env.TARO_ENV === "rn",
