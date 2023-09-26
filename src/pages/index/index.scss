@@ -1,2 +1,7 @@
-@import "~taro-ui/dist/style/components/button.scss";
-@import "~taro-ui/dist/style/components/loading.scss";
+@import 'tailwindcss/components';
+
+@layer components {
+  .entry-item {
+    @apply bg-blue-300 rounded-lg p-2 hover:bg-blue-500;
+  }
+}
