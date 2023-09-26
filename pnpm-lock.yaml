@@ -121,6 +121,9 @@ devDependencies:
   eslint-plugin-react-hooks:
     specifier: ^4.6.0
     version: 4.6.0(eslint@8.50.0)
+  git-cz:
+    specifier: ^4.9.0
+    version: 4.9.0
   jest:
     specifier: ^29.7.0
     version: 29.7.0(@types/node@18.18.0)(ts-node@10.9.1)
@@ -7823,6 +7826,11 @@ packages:
 
   /git-clone@0.1.0:
     resolution: {integrity: sha512-zs9rlfa7HyaJAKG9o+V7C6qfMzyc+tb1IIXdUFcOBcR1U7siKy/uPdauLlrH1mc0vOgUwIv4BF+QxPiiTYz3Rw==}
+    dev: true
+
+  /git-cz@4.9.0:
+    resolution: {integrity: sha512-cSRL8IIOXU7UFLdbziCYqg8f8InwLwqHezkiRHNSph7oZqGv0togId1kMTfKil6gzK0VaSXeVBb4oDl0fQCHiw==}
+    hasBin: true
     dev: true
 
   /giturl@1.0.3:
