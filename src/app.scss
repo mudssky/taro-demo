@@ -3,3 +3,7 @@
 @import 'tailwindcss/utilities';
 
 @import '~taro-ui/dist/style/index.scss'; // 引入组件样式 - 方式二
+
+.taro_router {
+  display: block;
+}

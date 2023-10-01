@@ -1,17 +1,17 @@
-import { defineConfig, type UserConfigExport } from "@tarojs/cli";
-import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
-import path from "path";
-import devConfig from "./dev";
-import prodConfig from "./prod";
+import { defineConfig, type UserConfigExport } from '@tarojs/cli'
+import path from 'path'
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
+import devConfig from './dev'
+import prodConfig from './prod'
 // 注册 weapp tailwind
 // eslint-disable-next-line import/no-commonjs
-const { UnifiedWebpackPluginV5 } = require("weapp-tailwindcss/webpack");
+const { UnifiedWebpackPluginV5 } = require('weapp-tailwindcss/webpack')
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 // @ts-ignore 这一行未使用变量ts报错忽略
 export default defineConfig(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport = {
-    projectName: "taro-demo",
-    date: "2023-9-16",
+    projectName: 'taro-demo',
+    date: '2023-9-16',
     // 默认使用的设计稿尺寸
     // Taro v3.4.13 开始支持配置函数形式的 designWidth，借此开发者可以动态地设置 designWidth
     designWidth: 750,
@@ -24,27 +24,32 @@ export default defineConfig(async (merge, { command, mode }) => {
       375: 2,
       828: 1.81 / 2,
     },
-    sourceRoot: "src",
+    sourceRoot: 'src',
     outputRoot:
-      process.env.NODE_ENV === "development"
+      process.env.NODE_ENV === 'development'
         ? `dist/dev/${process.env.TARO_ENV}`
         : `dist/prod/${process.env.TARO_ENV}`,
     plugins: [],
     // 全局变量设置
     defineConstants: {
-      IS_H5: process.env.TARO_ENV === "h5",
-      IS_RN: process.env.TARO_ENV === "rn",
-      IS_WEAPP: process.env.TARO_ENV === "weapp",
+      IS_H5: process.env.TARO_ENV === 'h5',
+      IS_RN: process.env.TARO_ENV === 'rn',
+      IS_WEAPP: process.env.TARO_ENV === 'weapp',
     },
     alias: {
-      "@": path.resolve(__dirname, ".."),
+      '@': path.resolve(__dirname, '..'),
     },
     copy: {
       patterns: [],
       options: {},
     },
-    framework: "react",
-    compiler: "webpack5",
+    framework: 'react',
+    compiler: {
+      type: 'webpack5',
+      prebundle: {
+        enable: false,
+      },
+    },
     cache: {
       enable: true, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
     },
@@ -63,8 +68,8 @@ export default defineConfig(async (merge, { command, mode }) => {
         cssModules: {
           enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
           config: {
-            namingPattern: "module", // 转换模式，取值为 global/module
-            generateScopedName: "[name]__[local]___[hash:base64:5]",
+            namingPattern: 'module', // 转换模式，取值为 global/module
+            generateScopedName: '[name]__[local]___[hash:base64:5]',
           },
         },
       },
@@ -76,28 +81,28 @@ export default defineConfig(async (merge, { command, mode }) => {
                 plugin: UnifiedWebpackPluginV5,
                 args: [
                   {
-                    appType: "taro",
+                    appType: 'taro',
                   },
                 ],
               },
             },
           })
-          .resolve.plugin("tsconfig-paths")
-          .use(TsconfigPathsPlugin);
+          .resolve.plugin('tsconfig-paths')
+          .use(TsconfigPathsPlugin)
       },
     },
     h5: {
-      esnextModules: ["taro-ui"],
-      publicPath: "/",
-      staticDirectory: "static",
+      esnextModules: ['taro-ui'],
+      publicPath: '/',
+      staticDirectory: 'static',
       output: {
-        filename: "js/[name].[hash:8].js",
-        chunkFilename: "js/[name].[chunkhash:8].js",
+        filename: 'js/[name].[hash:8].js',
+        chunkFilename: 'js/[name].[chunkhash:8].js',
       },
       miniCssExtractPluginOption: {
         ignoreOrder: true,
-        filename: "css/[name].[hash].css",
-        chunkFilename: "css/[name].[chunkhash].css",
+        filename: 'css/[name].[hash].css',
+        chunkFilename: 'css/[name].[chunkhash].css',
       },
       postcss: {
         autoprefixer: {
@@ -107,28 +112,28 @@ export default defineConfig(async (merge, { command, mode }) => {
         cssModules: {
           enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
           config: {
-            namingPattern: "module", // 转换模式，取值为 global/module
-            generateScopedName: "[name]__[local]___[hash:base64:5]",
+            namingPattern: 'module', // 转换模式，取值为 global/module
+            generateScopedName: '[name]__[local]___[hash:base64:5]',
           },
         },
       },
       webpackChain(chain) {
-        chain.resolve.plugin("tsconfig-paths").use(TsconfigPathsPlugin);
+        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
       },
     },
     rn: {
-      appName: "taroDemo",
+      appName: 'taroDemo',
       postcss: {
         cssModules: {
           enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
         },
       },
     },
-  };
-  if (process.env.NODE_ENV === "development") {
+  }
+  if (process.env.NODE_ENV === 'development') {
     // 本地开发构建配置（不混淆压缩）
-    return merge({}, baseConfig, devConfig);
+    return merge({}, baseConfig, devConfig)
   }
   // 生产构建配置（默认开启压缩混淆等）
-  return merge({}, baseConfig, prodConfig);
-});
+  return merge({}, baseConfig, prodConfig)
+})
