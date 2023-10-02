@@ -4,6 +4,7 @@ export default defineAppConfig({
     'pages/login/index',
     'pages/register/index',
     'pages/my/index',
+    'pages/order/meetingRoomList/index',
   ],
   window: {
     backgroundTextStyle: 'light',
