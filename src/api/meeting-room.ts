@@ -151,6 +151,7 @@ export interface MeetingRoomRes {
       }
     }
     createdAt: string
+    name: string
     updatedAt: string
     publishedAt: string
     createdBy: { data: { id: number; attributes: {} } }
