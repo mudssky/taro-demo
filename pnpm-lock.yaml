@@ -53,6 +53,12 @@ dependencies:
   '@tarojs/taro':
     specifier: 3.6.17
     version: 3.6.17(@types/react@18.2.22)(postcss@8.4.30)
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
+  lodash-es:
+    specifier: ^4.17.21
+    version: 4.17.21
   react:
     specifier: ^18.2.0
     version: 18.2.0

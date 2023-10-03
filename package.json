@@ -54,6 +54,8 @@
     "@tarojs/runtime": "3.6.17",
     "@tarojs/shared": "3.6.17",
     "@tarojs/taro": "3.6.17",
+    "dayjs": "^1.11.10",
+    "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "taro-ui": "^3.1.1",

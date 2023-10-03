@@ -1,10 +1,30 @@
 import locationPic from '@/assets/svg/location.svg'
-import { Image, View } from '@tarojs/components'
-import { AtDivider } from 'taro-ui'
+import rightPic from '@/assets/svg/right.svg'
+import { Image, Picker, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import dayjs from 'dayjs'
+import { omit } from 'lodash-es'
+import {
+  AtCalendar,
+  AtDivider,
+  AtFloatLayout,
+  AtForm,
+  AtInput,
+  AtList,
+  AtListItem,
+} from 'taro-ui'
 import { useSetupHook } from './hooks'
 
 export default function OrderMeetingRoom() {
-  const { currentOrderItem } = useSetupHook()
+  const {
+    currentOrderItem,
+    showCalender,
+    formValues,
+    register,
+    handleShowCalender,
+    handleCloseCalender,
+    handleDateSelected,
+  } = useSetupHook()
 
   return (
     <View>
@@ -25,6 +45,86 @@ export default function OrderMeetingRoom() {
         <View>容纳人数：{currentOrderItem?.attributes?.capacity}</View>
       </View>
       <AtDivider content="分割线" />
+      <AtForm>
+        <View className="flex items-center">
+          <AtInput
+            required
+            title="日期选择"
+            type="text"
+            placeholder="请选择"
+            editable={false}
+            {...omit(register('date'), 'onChange')}
+          ></AtInput>
+          <Image
+            className="w-[40px] h-[40px]"
+            src={rightPic}
+            onClick={handleShowCalender}
+          />
+        </View>
+        <Picker
+          mode="time"
+          value={formValues?.startTime ?? ''}
+          onChange={(e) => {
+            if (formValues.endTime) {
+              if (
+                !dayjs(e.detail.value, 'HH:mm').isBefore(
+                  dayjs(formValues.endTime, 'HH:mm'),
+                )
+              ) {
+                Taro.showToast({
+                  title: '开始时间不能大于结束时间',
+                })
+                return
+              }
+            }
+
+            register('startTime').onChange(e.detail.value)
+          }}
+        >
+          <AtList>
+            <AtListItem
+              title="请选择开始时间"
+              extraText={formValues?.startTime ?? ''}
+            />
+          </AtList>
+        </Picker>
+        <Picker
+          mode="time"
+          value={formValues?.endTime ?? ''}
+          onChange={(e) => {
+            if (formValues.startTime) {
+              console.log({ e, formValues })
+
+              if (
+                !dayjs(formValues.startTime, 'HH:mm').isBefore(
+                  dayjs(e.detail.value, 'HH:mm'),
+                )
+              ) {
+                Taro.showToast({
+                  title: '开始时间不能大于结束时间',
+                })
+                return
+              }
+            }
+
+            register('endTime').onChange(e.detail.value)
+          }}
+        >
+          <AtList>
+            <AtListItem
+              title="请选择结束时间"
+              extraText={formValues?.endTime ?? ''}
+            />
+          </AtList>
+        </Picker>
+      </AtForm>
+      <AtFloatLayout isOpened={showCalender} onClose={handleCloseCalender}>
+        <AtCalendar
+          onSelectDate={(e) => {
+            register('date').onChange(e.value.start)
+          }}
+        />
+      </AtFloatLayout>
     </View>
   )
 }
