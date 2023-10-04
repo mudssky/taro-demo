@@ -1,6 +1,7 @@
 import { MeetingRoomRes } from '@/api/meeting-room'
 import request from '@/request/request'
 import { useMeetingRoomStore } from '@/store/meetingRoomStore'
+import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { PagiData } from 'types/global'
 

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   disableEmoji: false,
   format: '{type}{scope}: {emoji}{subject}',
   list: [

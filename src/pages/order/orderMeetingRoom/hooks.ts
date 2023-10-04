@@ -1,13 +1,14 @@
 import { useForm } from '@/hooks/form'
 import request from '@/request/request'
 import { useMeetingRoomStore } from '@/store/meetingRoomStore'
-import { useRouter } from '@tarojs/taro'
+import Taro, { useRouter } from '@tarojs/taro'
 import { useCallback, useEffect, useState } from 'react'
 
 interface FormData {
   date: string
   startTime: string
   endTime: string
+  remark: string //备注
 }
 export function useSetupHook() {
   const { params } = useRouter()
@@ -35,6 +36,21 @@ export function useSetupHook() {
   function handleDateSelected(e) {
     console.log({ e })
   }
+
+  async function handleSubmit() {
+    const res = await request.post('/meeting-room-orders', {
+      data: {
+        ...formValues,
+        meeting_room: currentOrderItem?.id,
+      },
+    })
+    if (res?.data) {
+      Taro.showToast({
+        title: '预约成功',
+      })
+      // Taro.redirectTo('')
+    }
+  }
   useEffect(() => {
     console.log({ params })
     if (params.id) {
@@ -51,5 +67,6 @@ export function useSetupHook() {
     handleShowCalender,
     handleCloseCalender,
     handleDateSelected,
+    handleSubmit,
   }
 }

@@ -19,7 +19,7 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "typeRoots": ["node_modules/@types"],
-    "allowUmdGlobalAccess": true, //避免未导入React的ts报错
+    "allowUmdGlobalAccess": false, //避免未导入React的ts报错//因为会导致未引入taro的报错。所以放弃了
     "paths": {
       "@/*": ["src/*"]
     }

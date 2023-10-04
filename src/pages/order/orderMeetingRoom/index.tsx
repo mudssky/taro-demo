@@ -5,6 +5,7 @@ import Taro from '@tarojs/taro'
 import dayjs from 'dayjs'
 import { omit } from 'lodash-es'
 import {
+  AtButton,
   AtCalendar,
   AtDivider,
   AtFloatLayout,
@@ -12,6 +13,7 @@ import {
   AtInput,
   AtList,
   AtListItem,
+  AtTextarea,
 } from 'taro-ui'
 import { useSetupHook } from './hooks'
 
@@ -23,12 +25,12 @@ export default function OrderMeetingRoom() {
     register,
     handleShowCalender,
     handleCloseCalender,
-    handleDateSelected,
+    handleSubmit,
   } = useSetupHook()
 
   return (
     <View>
-      <View>
+      <View className="w-full">
         <Image
           className="h-[500px] w-full"
           src={`${process.env.TARO_APP_BASEURL}${currentOrderItem?.attributes?.cover.data.attributes.url}`}
@@ -45,8 +47,8 @@ export default function OrderMeetingRoom() {
         <View>容纳人数：{currentOrderItem?.attributes?.capacity}</View>
       </View>
       <AtDivider content="分割线" />
-      <AtForm>
-        <View className="flex items-center">
+      <AtForm className="pb-16">
+        <View className="flex items-center justify-between pr-3">
           <AtInput
             required
             title="日期选择"
@@ -93,13 +95,14 @@ export default function OrderMeetingRoom() {
           value={formValues?.endTime ?? ''}
           onChange={(e) => {
             if (formValues.startTime) {
-              console.log({ e, formValues })
+              console.log({ start: formValues.startTime, end: e.detail.value })
 
-              if (
-                !dayjs(formValues.startTime, 'HH:mm').isBefore(
-                  dayjs(e.detail.value, 'HH:mm'),
-                )
-              ) {
+              const startDay = dayjs(formValues.startTime, 'HH:mm', 'en')
+              const endDay = dayjs(e.detail.value, 'HH:mm', 'en')
+              // console.log({ startDay, endDay })
+              console.log({ start: startDay.format(), end: endDay.format() })
+
+              if (!startDay.isBefore(endDay)) {
                 Taro.showToast({
                   title: '开始时间不能大于结束时间',
                 })
@@ -117,6 +120,13 @@ export default function OrderMeetingRoom() {
             />
           </AtList>
         </Picker>
+        <AtTextarea
+          count
+          value={formValues?.remark ?? ''}
+          {...omit(register('remark'), 'value')}
+          maxLength={200}
+          placeholder="请输入备注"
+        />
       </AtForm>
       <AtFloatLayout isOpened={showCalender} onClose={handleCloseCalender}>
         <AtCalendar
@@ -125,6 +135,13 @@ export default function OrderMeetingRoom() {
           }}
         />
       </AtFloatLayout>
+      <View className="fixed bottom-0 left-0 w-full flex justify-center">
+        <View className="w-11/12">
+          <AtButton type="primary" circle onClick={handleSubmit}>
+            提交
+          </AtButton>
+        </View>
+      </View>
     </View>
   )
 }
