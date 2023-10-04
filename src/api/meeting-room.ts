@@ -160,3 +160,16 @@ export interface MeetingRoomRes {
     locale: string
   }
 }
+
+export type MeetingRoomRecord = {
+  id: number
+  attributes: {
+    date: string
+    startTime: string
+    endTime: string
+    remark: string
+    createdAt: string
+    updatedAt: string
+    meetingRoom: MeetingRoomRes
+  }
+}

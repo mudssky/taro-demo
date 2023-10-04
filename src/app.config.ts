@@ -6,6 +6,7 @@ export default defineAppConfig({
     'pages/my/index',
     'pages/order/meetingRoomList/index',
     'pages/order/orderMeetingRoom/index',
+    'pages/order/meetingRoomHistory/index',
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -48,7 +48,7 @@ export function useSetupHook() {
       Taro.showToast({
         title: '预约成功',
       })
-      // Taro.redirectTo('')
+      Taro.redirectTo({ url: '/pages/order/meetingRoomHistory/index' })
     }
   }
   useEffect(() => {

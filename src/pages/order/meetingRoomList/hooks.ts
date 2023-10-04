@@ -32,6 +32,11 @@ export function useSetupHook() {
       url: `/pages/order/orderMeetingRoom/index?id=${item.id}`,
     })
   }
+  const handleJumpHistory = () => {
+    Taro.navigateTo({
+      url: `/pages/order/meetingRoomHistory/index`,
+    })
+  }
   useEffect(() => {
     getRoomList()
 
@@ -41,5 +46,6 @@ export function useSetupHook() {
   return {
     meetingRoomList,
     handleJumpAdd,
+    handleJumpHistory,
   }
 }
