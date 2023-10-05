@@ -13,7 +13,7 @@ export default function MeetingRoomHistroy() {
           return (
             <View
               key={item.id}
-              className="m-2 p-2 text-sm bottom-1 border-gray-300 border-solid rounded-md"
+              className="m-2 p-2 text-sm border-2 border-gray-300 border-solid rounded-md"
             >
               <View className="flex justify-between">
                 <Text>会议室名称:</Text>
