@@ -1,5 +1,6 @@
 import locationPic from '@/assets/svg/location.svg'
 import rightPic from '@/assets/svg/right.svg'
+import CustomNavbar from '@/components/CustomNavbar'
 import { Image, Picker, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import dayjs from 'dayjs'
@@ -30,6 +31,7 @@ export default function OrderMeetingRoom() {
 
   return (
     <View>
+      {process.env.TARO_ENV === 'h5' && <CustomNavbar></CustomNavbar>}
       <View className="w-full">
         <Image
           className="h-[500px] w-full"

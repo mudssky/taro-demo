@@ -170,6 +170,6 @@ export type MeetingRoomRecord = {
     remark: string
     createdAt: string
     updatedAt: string
-    meetingRoom: MeetingRoomRes
+    meeting_room?: { data: MeetingRoomRes }
   }
 }
