@@ -1,6 +1,7 @@
 import { GlobalStorage } from '@/global/storage'
 import { useForm } from '@/hooks/form'
 import request from '@/request/request'
+import Taro from '@tarojs/taro'
 
 interface FormData {
   username: string

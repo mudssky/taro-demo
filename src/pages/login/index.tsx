@@ -1,4 +1,5 @@
 import { View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { AtButton, AtForm, AtInput } from 'taro-ui'
 import { useSetupHook } from './hooks'
 
